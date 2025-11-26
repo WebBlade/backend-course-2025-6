@@ -1,0 +1,142 @@
+openapi: 3.0.0
+info:
+  title: Inventory API
+  description: API для лабораторної роботи №6
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /RegisterForm.html:
+    get:
+      summary: Веб форма для реєстрації
+      responses:
+        200:
+          description: HTML сторінка
+  /SearchForm.html:
+    get:
+      summary: Веб форма для пошуку
+      responses:
+        200:
+          description: HTML сторінка
+  /register:
+    post:
+      summary: Реєстрація нового пристрою
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                inventory_name:
+                  type: string
+                description:
+                  type: string
+                photo:
+                  type: string
+                  format: binary
+      responses:
+        201:
+          description: Created
+        400:
+          description: Bad Request
+  /inventory:
+    get:
+      summary: Список всіх речей
+      responses:
+        200:
+          description: JSON масив
+  /inventory/{id}:
+    get:
+      summary: Отримати річ за ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: JSON об'єкт
+        404:
+          description: Not Found
+    put:
+      summary: Оновити текст речі
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        200:
+          description: Updated
+    delete:
+      summary: Видалити річ
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Deleted
+  /inventory/{id}/photo:
+    get:
+      summary: Скачати фото речі
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Image file
+    put:
+      summary: Оновити тільки фото
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                photo:
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: Photo Updated
+  /search:
+    post:
+      summary: Пошук (логіка з форми)
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                includePhoto:
+                  type: string
+                  enum: ['on', 'off']
+      responses:
+        200:
+          description: Found

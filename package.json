@@ -2,8 +2,10 @@
   "name": "backend-course-2025-6",
   "version": "1.0.0",
   "main": "main.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon main.js --"
   },
   "repository": {
     "type": "git",
@@ -17,8 +19,11 @@
   "homepage": "https://github.com/WebBlade/backend-course-2025-6#readme",
   "description": "",
   "dependencies": {
-    "commander": "^14.0.2",
-    "superagent": "^10.2.3"
+    "commander": "^12.0.0",
+    "express": "^4.19.0",
+    "multer": "^1.4.5-lts.1",
+    "swagger-ui-express": "^5.0.0",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
